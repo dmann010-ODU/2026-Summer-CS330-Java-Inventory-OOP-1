@@ -30,9 +30,15 @@ public class Armour extends Equippable {
      */
     public Armour()
     {
-        super();
+        super("[PlaceHolder]");
 
+
+        this.durability = 0;
         this.defense = 0;
+        this.material = "";
+        this.modifier = "";
+        this.modifierLevel = 0;
+        this.element = "";
     }
 
     /**
@@ -43,6 +49,14 @@ public class Armour extends Equippable {
     public Armour(Armour src)
     {
         // Complete this function.
+         super(src.name);
+
+        this.durability = src.durability;
+        this.defense = src.defense;
+        this.material = src.material;
+        this.modifier = src.modifier;
+        this.modifierLevel = src.modifierLevel;
+        this.element = src.element;
     }
 
     /**
@@ -71,7 +85,13 @@ public class Armour extends Equippable {
     @Override
     public void read(Scanner snr)
     {
-        super.name    = snr.next();
+        super.name = snr.next();
+        this.material = snr.next();
+        this.durability = snr.nextInt();
+        this.defense = snr.nextInt();
+        this.modifier = snr.next();
+        this.modifierLevel = snr.nextInt();
+        this.element = snr.next();
 
         // Complete this function.
     }
@@ -80,11 +100,18 @@ public class Armour extends Equippable {
      * Clone--i.e., copy--this Armour.
      */
     @Override
-    public Item clone()
+    public Armour clone()
     {
         Armour cpy = new Armour();
 
         // Complete this function.
+        cpy.name = this.name;
+        cpy.durability = this.durability;
+        cpy.defense = this.defense;
+        cpy.material = this.material;
+        cpy.modifier = this.modifier;
+        cpy.modifierLevel = this.modifierLevel;
+        cpy.element = this.element;
 
         return cpy;
     }
@@ -106,7 +133,10 @@ public class Armour extends Equippable {
 
         // Complete this function.
         // Remove the placeholder return
-        return false;
+        return this.name.equals(rhsItem.name) && 
+                this.material.equals(rhsItem.material) && 
+                this.modifier.equals(rhsItem.modifier) && 
+                this.element.equals(rhsItem.element);
     }
 
     /**
@@ -118,7 +148,7 @@ public class Armour extends Equippable {
     {
         // Complete this function.
         // Remove the placeholder return
-        return -1;
+        return this.name.hashCode() + this.material.hashCode() + this.modifier.hashCode() + this.element.hashCode();
     }
 
     /**
@@ -132,6 +162,11 @@ public class Armour extends Equippable {
         return String.join(
             System.lineSeparator(),
             String.format("  Nme: %s", super.getName()),
+            String.format("  Dur: %d", this.durability),
+            String.format("  Def: %d", this.defense),
+            String.format("  Mtl: %s", this.material),
+            String.format("  Mdr: %s (Lvl %d)", this.modifier, this.modifierLevel),
+            String.format("  Emt: %s", this.element),
             ""
         );
     }
